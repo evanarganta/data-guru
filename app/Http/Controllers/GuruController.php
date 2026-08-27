@@ -10,10 +10,25 @@ use Illuminate\View\View;
 
 class GuruController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
+        $search = $request->query('search');
+
+        $gurus = Guru::query()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('nama', 'like', "%{$search}%")
+                        ->orWhere('nip', 'like', "%{$search}%")
+                        ->orWhere('mapel', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->get();
+
         return view('guru.index', [
-            'gurus' => Guru::query()->latest()->get(),
+            'gurus' => $gurus,
+            'search' => $search,
         ]);
     }
 
@@ -64,12 +79,26 @@ class GuruController extends Controller
             ->with('success', "Data guru {$nama} berhasil dihapus.");
     }
 
-    public function api(): JsonResponse
+    public function api(Request $request): JsonResponse
     {
+        $search = $request->query('search');
+
+        $gurus = Guru::query()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('nama', 'like', "%{$search}%")
+                        ->orWhere('nip', 'like', "%{$search}%")
+                        ->orWhere('mapel', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%");
+                });
+            })
+            ->latest()
+            ->get();
+
         return response()->json([
             'status' => true,
             'message' => 'Berhasil',
-            'data' => Guru::query()->latest()->get(),
+            'data' => $gurus,
         ]);
     }
 

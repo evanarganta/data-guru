@@ -3,27 +3,46 @@
 @section('title', 'Daftar Guru')
 
 @section('content')
-    <div class="mb-6 flex items-center justify-between">
+    <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <h1 class="text-xl font-semibold tracking-tight text-white">
             Daftar Guru
             <span class="ml-2 text-xs font-normal text-zinc-500">({{ $gurus->count() }})</span>
         </h1>
 
-        <a href="{{ route('guru.create') }}" class="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-200 active:scale-[0.98]">
-            <svg class="size-3.5 stroke-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg>
-            Tambah Guru
-        </a>
+        <div class="flex items-center gap-2">
+            <form action="{{ route('guru.index') }}" method="GET" class="relative">
+                <svg class="pointer-events-none absolute left-3 top-1/2 size-3.5 -translate-y-1/2 stroke-2 text-zinc-500" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="search" name="search" value="{{ $search }}" placeholder="Cari guru..." class="w-full rounded-lg border border-zinc-800 bg-zinc-900/90 py-1.5 pl-8 pr-7 text-xs text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-500 focus:outline-none focus:ring-1 focus:ring-zinc-500 transition sm:w-56">
+                @if ($search)
+                    <a href="{{ route('guru.index') }}" class="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-zinc-500 hover:text-zinc-300" title="Hapus pencarian">✕</a>
+                @endif
+            </form>
+
+            <a href="{{ route('guru.create') }}" class="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-200 active:scale-[0.98]">
+                <svg class="size-3.5 stroke-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg>
+                Tambah Guru
+            </a>
+        </div>
     </div>
 
     @if ($gurus->isEmpty())
         <section class="rounded-xl border border-dashed border-zinc-800 bg-zinc-900/30 px-6 py-12 text-center">
-            <p class="text-sm text-zinc-400">Belum ada data guru.</p>
-            <div class="mt-4">
-                <a href="{{ route('guru.create') }}" class="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-200 active:scale-[0.98]">
-                    <svg class="size-3.5 stroke-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg>
-                    Tambah data
-                </a>
-            </div>
+            @if ($search)
+                <p class="text-sm text-zinc-300">Tidak ada hasil untuk "<span class="font-medium text-white">{{ $search }}</span>"</p>
+                <div class="mt-4">
+                    <a href="{{ route('guru.index') }}" class="inline-flex items-center rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5 text-xs font-medium text-zinc-400 hover:bg-zinc-800 hover:text-white transition">
+                        Reset pencarian
+                    </a>
+                </div>
+            @else
+                <p class="text-sm text-zinc-400">Belum ada data guru.</p>
+                <div class="mt-4">
+                    <a href="{{ route('guru.create') }}" class="inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-1.5 text-xs font-semibold text-zinc-950 transition hover:bg-zinc-200 active:scale-[0.98]">
+                        <svg class="size-3.5 stroke-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M5 12h14"/></svg>
+                        Tambah data
+                    </a>
+                </div>
+            @endif
         </section>
     @else
         <section class="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-900/40">

@@ -104,4 +104,27 @@ class GuruManagementTest extends TestCase
             ->assertJsonPath('data.0.id', $guru->id)
             ->assertJsonPath('data.0.nama', 'Fajar Nugroho');
     }
+
+    public function test_index_can_search_teachers(): void
+    {
+        Guru::factory()->create(['nama' => 'Gita Gutawa', 'mapel' => 'Seni Musik']);
+        Guru::factory()->create(['nama' => 'Hadi Susanto', 'mapel' => 'Fisika']);
+
+        $this->get('/guru?search=Gita')
+            ->assertOk()
+            ->assertSee('Gita Gutawa')
+            ->assertDontSee('Hadi Susanto');
+    }
+
+    public function test_api_can_search_teachers(): void
+    {
+        $target = Guru::factory()->create(['nama' => 'Indra Wijaya', 'nip' => '1122334455']);
+        Guru::factory()->create(['nama' => 'Joko Anwar', 'nip' => '9988776655']);
+
+        $this->getJson('/api/guru?search=1122334455')
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.id', $target->id)
+            ->assertJsonPath('data.0.nama', 'Indra Wijaya');
+    }
 }
