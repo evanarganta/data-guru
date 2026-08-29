@@ -1,8 +1,13 @@
-# Mini Project Website Data Guru MK
+<h1 align="center">Mini Project Website Data Guru MK</h1>
 
-[![PHP 8.2+](https://img.shields.io/badge/PHP-8.3+-777BB4?style=flat&logo=php&logoColor=white)](https://php.net)
-[![Laravel 12](https://img.shields.io/badge/Laravel-13-FF2D20?style=flat&logo=laravel&logoColor=white)](https://laravel.com)
-[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind-v4.0-06B6D4?style=flat&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+<p align="center">
+    <img src="https://img.shields.io/badge/PHP-8.3+-777BB4?style=flat&logo=php&logoColor=white" alt="PHP 8.3+">
+    <img src="https://img.shields.io/badge/Laravel-13-FF2D20?style=flat&logo=laravel&logoColor=white" alt="Laravel 13">
+    <img src="https://img.shields.io/badge/Composer-2.2%2B-885630?style=flat&logo=composer&logoColor=white" alt="Composer 2.2+">
+    <img src="https://img.shields.io/badge/Tailwind-v4.0-06B6D4?style=flat&logo=tailwindcss&logoColor=white" alt="Tailwind CSS 4">
+    <img src="https://img.shields.io/badge/Node.js-%26_NPM-339933?style=flat&logo=node.js&logoColor=white" alt="Node.js & NPM">
+    <img src="https://img.shields.io/badge/License-MIT-blue?style=flat" alt="MIT License">
+</p>
 
 Sistem CRUD API yang cukup enteng, didesain secara murni hanya untuk menangani data guru (NIP, nama, email, dll.) dengan validasi server-side dan feedback instan, terus juga ada JSON API endpoint yang sudah built-in.
 
@@ -15,15 +20,7 @@ Sistem CRUD API yang cukup enteng, didesain secara murni hanya untuk menangani d
 - Database menggunakan SQLite (karena tidak disuruh pakai MySQL).
 - Redirect dari `localhost:8000` ke `/guru`.
 
-## Setup
-
-### Prasyarat
-
-- PHP 8.2+
-- Composer
-- Node.js (v18+) & npm
-
-### Instalasi
+## Instalasi
 
 1. **Clone repository**
    ```bash
@@ -55,7 +52,7 @@ Sistem CRUD API yang cukup enteng, didesain secara murni hanya untuk menangani d
    php artisan serve
    ```
 
-   Kunjungi `http://localhost:8000` di browser.
+   Kunjungi `http://localhost:8000` atau `http://127.0.0.1:8000` di browser.
 
 ## API Endpoint
 
@@ -81,12 +78,4 @@ Sistem CRUD API yang cukup enteng, didesain secara murni hanya untuk menangani d
     }
   ]
 }
-```
-
-## Menjalankan Tests
-
-Jalankan test suite dengan:
-
-```bash
-php artisan test
 ```
